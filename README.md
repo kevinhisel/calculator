@@ -1,0 +1,2 @@
+# Calculator
+Basic calculator app using JavaScript. Project completed while participating in [The Odin Project](https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/calculator).
