@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Zen+Dots&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body, #calculator, #display, .row {
+  display: flex;
+}
+
+body, #calculator {
+  flex-direction: column;
+}
+
+body {
+  background-color: #A9A9A9;
+  align-items: center;
+}
+
+#calculator {
+  background-color: #E25822;
+  height: 75vh;
+  width: 50vh;
+  padding: .5em;
+}
+
+
+.row, .row > button {
+  flex: 1;
+}
+
+.top {
+  flex: .6;
+}
+
+#display {
+  background-color: #DCDCDC;
+  flex: 1.1;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin: .5em 0 .75em;
+  padding: .5em;
+}
+
+#display p {
+  font: 1.75em 'Zen Dots', sans-serif;
+  letter-spacing: .1em;
+  margin: 0;
+}
+
+button {
+  font: 1.5em 'Roboto', sans-serif;
+  margin: .08em;
+}
+
+button.invert {
+  border-color: #303030;
+  background-color: #383838;
+  color: white;
+}
+
+button.invert:hover {
+  border-color: #282828;
+  background-color: #303030;
+}
+
+button.clear {
+  border-color: #303030;
+  background-color: #383838;
+  color: white;
+}
+
+button.clear:hover {
+  border-color: #282828;
+  background-color: #303030;
+}
+
+button.delete {
+  border-color: #303030;
+  background-color: #383838;
+  color: white;
+}
+
+button.delete:hover {
+  border-color: #282828;
+  background-color: #303030;
+}
