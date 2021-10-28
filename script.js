@@ -46,6 +46,11 @@ function wireButtons() {
           calculator.hasDecimal = true;
         }
       });
+    } else if (btn.name === 'clear') {
+      btn.addEventListener('click', () => {
+        text.textContent = '0';
+        display.appendChild(text);
+      });
     }
   });
 }
