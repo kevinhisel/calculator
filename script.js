@@ -1,14 +1,15 @@
+const display = document.querySelector('#display');
+const text    = document.querySelector('#display > p');
+
 const calculator = {
-  isNewNumber  : true,
-  hasDecimal : false,
+  isNewNumber : true,
+  hasDecimal  : false,
 };
 
 wireButtons();
 
 function wireButtons() {
-  const btns    = document.querySelectorAll('button');
-  const display = document.querySelector('#display');
-  const text    = document.querySelector('#display > p');
+  const btns = document.querySelectorAll('button');
   
   btns.forEach(btn => {
     if (btn.name === 'number') {
@@ -17,22 +18,19 @@ function wireButtons() {
           text.textContent = '';
           calculator.isNewNumber = false;
         }
-        text.textContent += btn.textContent;
-        display.appendChild(text);
+        printToDisplay(btn.textContent);
       });
     } else if (btn.name === 'operator') {
       btn.addEventListener('click', () => {
         calculator.firstNumber = Number(text.textContent);
         calculator.operator    = btn.value;
-        readyNew();
-        
+        readyNewNumber();
       });
     } else if (btn.name === 'equals') {
       btn.addEventListener('click', () => {
-        text.textContent = 
-            operate(calculator.operator, calculator.firstNumber, Number(text.textContent));
-        display.appendChild(text);
-        readyNew();
+        let tempNum = Number(text.textContent);
+        printToDisplay(operate(calculator.operator, calculator.firstNumber, tempNum), false);
+        readyNewNumber();
       });
     } else if (btn.name === 'decimal') {
       btn.addEventListener('click', () => {
@@ -41,22 +39,20 @@ function wireButtons() {
             text.textContent = '0';
             calculator.isNewNumber = false;
           }
-          text.textContent += btn.textContent;
-          display.appendChild(text);
+          printToDisplay(btn.textContent);
           calculator.hasDecimal = true;
         }
       });
     } else if (btn.name === 'clear') {
       btn.addEventListener('click', () => {
-        text.textContent = '0';
-        display.appendChild(text);
-        readyNew();
-        delete calculator.firstNumber;
-        delete calculator.operator;
+        printToDisplay('0', false);
+        clearVariables();
       });
     }
   });
 }
+
+// Math functions 
 
 function add(a, b) {
   return a + b;
@@ -82,7 +78,21 @@ function operate(operator, a, b) {
   else return 0;
 }
 
-function readyNew() {
-  calculator.isNewNumber  = true;
-  calculator.hasDecimal = false;
+// Functions for readability
+
+function printToDisplay(string, concatenate = true) {
+  if (concatenate) text.textContent += string;
+  else text.textContent  = string;
+  display.appendChild(text);
+}
+
+function readyNewNumber() {
+  calculator.isNewNumber = true;
+  calculator.hasDecimal  = false;
+}
+
+function clearVariables() {
+  readyNewNumber();
+  delete calculator.firstNumber;
+  delete calculator.operator;
 }
