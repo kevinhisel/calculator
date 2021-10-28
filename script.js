@@ -1,5 +1,5 @@
 const calculator = {
-  newNumber  : true,
+  isNewNumber  : true,
   hasDecimal : false,
 };
 
@@ -13,9 +13,9 @@ function wireButtons() {
   btns.forEach(btn => {
     if (btn.name === 'number') {
       btn.addEventListener('click', () => {
-        if (calculator.newNumber || text.textContent === '0') {
+        if (calculator.isNewNumber || text.textContent === '0') {
           text.textContent = '';
-          calculator.newNumber = false;
+          calculator.isNewNumber = false;
         }
         text.textContent += btn.textContent;
         display.appendChild(text);
@@ -37,9 +37,9 @@ function wireButtons() {
     } else if (btn.name === 'decimal') {
       btn.addEventListener('click', () => {
         if(!calculator.hasDecimal) {
-          if (calculator.newNumber) {
+          if (calculator.isNewNumber) {
             text.textContent = '0';
-            calculator.newNumber = false;
+            calculator.isNewNumber = false;
           }
           text.textContent += btn.textContent;
           display.appendChild(text);
@@ -50,6 +50,9 @@ function wireButtons() {
       btn.addEventListener('click', () => {
         text.textContent = '0';
         display.appendChild(text);
+        readyNew();
+        delete calculator.firstNumber;
+        delete calculator.operator;
       });
     }
   });
@@ -76,9 +79,10 @@ function operate(operator, a, b) {
   else if (operator === '-') return subtract(a, b);
   else if (operator === '*') return multiply(a, b);
   else if (operator === '/') return divide(a, b);
+  else return 0;
 }
 
 function readyNew() {
-  calculator.newNumber  = true;
+  calculator.isNewNumber  = true;
   calculator.hasDecimal = false;
 }
