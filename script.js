@@ -22,15 +22,17 @@ function wireButtons() {
       });
     } else if (btn.name === 'operator') {
       btn.addEventListener('click', () => {
-        calculator.firstNumber = Number(text.textContent);
+        // if operator exists then savedNumber also exists and there shouldn't be logic errors
+        if ( 'operator' in calculator && !calculator.isNewNumber) getSolution();
+        calculator.savedNumber = Number(text.textContent);
         calculator.operator    = btn.value;
         readyNewNumber();
       });
     } else if (btn.name === 'equals') {
       btn.addEventListener('click', () => {
-        let tempNum = Number(text.textContent);
-        printToDisplay(operate(calculator.operator, calculator.firstNumber, tempNum), false);
+        getSolution();
         readyNewNumber();
+        delete calculator.operator;
       });
     } else if (btn.name === 'decimal') {
       btn.addEventListener('click', () => {
@@ -86,6 +88,11 @@ function printToDisplay(string, concatenate = true) {
   display.appendChild(text);
 }
 
+function getSolution() {
+  let tempNum = Number(text.textContent);
+  printToDisplay(operate(calculator.operator, calculator.savedNumber, tempNum), false);
+}
+
 function readyNewNumber() {
   calculator.isNewNumber = true;
   calculator.hasDecimal  = false;
@@ -93,6 +100,6 @@ function readyNewNumber() {
 
 function clearVariables() {
   readyNewNumber();
-  delete calculator.firstNumber;
+  delete calculator.savedNumber;
   delete calculator.operator;
 }
