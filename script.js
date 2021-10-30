@@ -1,9 +1,11 @@
-const display = document.querySelector('#display');
-const text    = document.querySelector('#display > p');
+const display  = document.querySelector('#display');
+const text     = document.querySelector('#display > p');
+const oBtns    = Array.from(document.querySelectorAll("button[name='operator']"));
 
 const calculator = {
-  isNewNumber : true,
-  hasDecimal  : false,
+  isNewNumber    : true,
+  hasDecimal     : false,
+  operatorActive : false,
 };
 
 wireButtons();
@@ -16,21 +18,27 @@ function wireButtons() {
       btn.addEventListener('click', () => {
         if (calculator.isNewNumber || text.textContent === '0') {
           text.textContent = '';
-          calculator.isNewNumber = false;
+          if (calculator.isNewNumber){
+            calculator.isNewNumber = false;
+            setOperatorInactive();
+          }
         }
         printToDisplay(btn.textContent);
       });
     } else if (btn.name === 'operator') {
       btn.addEventListener('click', () => {
+        setOperatorInactive();
         // if operator exists then savedNumber also exists and there shouldn't be logic errors
-        if ( 'operator' in calculator && !calculator.isNewNumber) getSolution();
+        if ( 'operator' in calculator && !calculator.isNewNumber) printSolution();
         calculator.savedNumber = Number(text.textContent);
         calculator.operator    = btn.value;
+        setOperatorActive(btn)
         readyNewNumber();
       });
     } else if (btn.name === 'equals') {
       btn.addEventListener('click', () => {
-        getSolution();
+        setOperatorInactive();
+        printSolution();
         readyNewNumber();
         delete calculator.operator;
       });
@@ -38,6 +46,7 @@ function wireButtons() {
       btn.addEventListener('click', () => {
         if(!calculator.hasDecimal) {
           if (calculator.isNewNumber) {
+            setOperatorInactive();
             text.textContent = '0';
             calculator.isNewNumber = false;
           }
@@ -48,6 +57,7 @@ function wireButtons() {
     } else if (btn.name === 'clear') {
       btn.addEventListener('click', () => {
         printToDisplay('0', false);
+        setOperatorInactive();
         clearVariables();
       });
     }
@@ -88,7 +98,19 @@ function printToDisplay(string, concatenate = true) {
   display.appendChild(text);
 }
 
-function getSolution() {
+function setOperatorInactive() {
+  if (calculator.operatorActive) {
+    oBtns[oBtns.findIndex(oBtn => oBtn.classList.contains('active'))].classList.toggle('active');
+  }
+  calculator.operatorActive = false;
+}
+
+function setOperatorActive(btn) {
+  btn.classList.toggle('active');
+  calculator.operatorActive = true; 
+}
+
+function printSolution() {
   let tempNum = Number(text.textContent);
   printToDisplay(operate(calculator.operator, calculator.savedNumber, tempNum), false);
 }
