@@ -13,8 +13,12 @@ body, #calculator {
 }
 
 body {
-  background-color: #A9A9A9;
+  background-color: #55433Cdd;
   align-items: center;
+}
+
+h1 {
+  color: #e9e9ed;
 }
 
 #calculator {
@@ -34,7 +38,7 @@ body {
 }
 
 #display {
-  background-color: #DCDCDC;
+  background-color: #e9e9ed;
   flex: 1.1;
   justify-content: flex-end;
   align-items: flex-end;
@@ -56,32 +60,15 @@ button {
 button.invert {
   border-color: #303030;
   background-color: #383838;
-  color: white;
+  color: #e9e9ed;
 }
 
 button.invert:hover {
-  border-color: #282828;
-  background-color: #303030;
+  border-color: #383838;
+  background-color: #495d8e;
 }
 
-button.clear {
-  border-color: #303030;
-  background-color: #383838;
-  color: white;
-}
-
-button.clear:hover {
-  border-color: #282828;
-  background-color: #303030;
-}
-
-button.delete {
-  border-color: #303030;
-  background-color: #383838;
-  color: white;
-}
-
-button.delete:hover {
-  border-color: #282828;
-  background-color: #303030;
+button.active {
+  border-color: #5D71A3;
+  background-color: #495d8e;
 }
