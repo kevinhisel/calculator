@@ -75,11 +75,11 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) {
-  return a * b;
+  return +(a * b).toFixed(4);
 }
 
 function divide(a, b) {
-  return a / b;
+  return +(a / b).toFixed(4);
 }
 
 function operate(operator, a, b) {
