@@ -92,9 +92,12 @@ function operate(operator, a, b) {
 
 // Functions for readability
 
-function printToDisplay(string, concatenate = true) {
+function printToDisplay(string, concatenate = true, error = false) {
   if (concatenate) text.textContent += string;
-  else text.textContent  = string;
+  else text.textContent = string;
+  if (text.textContent.toString().length > 9) {
+    if (!error) printToDisplay("Yeah, let's not do that.", false, true);
+  }
   display.appendChild(text);
 }
 
