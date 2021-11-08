@@ -38,9 +38,12 @@ function wireButtons() {
     } else if (btn.name === 'equals') {
       btn.addEventListener('click', () => {
         setOperatorInactive();
-        printSolution();
+        if ('operator' in calculator) {
+          printSolution();
+          calculator.savedOperator = calculator.operator;
+          delete calculator.operator;
+        } else if ('savedOperator' in calculator) printSolution(calculator.savedOperator);
         readyNewNumber();
-        delete calculator.operator;
       });
     } else if (btn.name === 'decimal') {
       btn.addEventListener('click', () => {
@@ -113,9 +116,14 @@ function setOperatorActive(btn) {
   calculator.operatorActive = true; 
 }
 
-function printSolution() {
-  let tempNum = Number(text.textContent);
-  printToDisplay(operate(calculator.operator, calculator.savedNumber, tempNum), false);
+function printSolution(operator = calculator.operator) {
+  let tempNum;
+  if (!calculator.isNewNumber) {
+    tempNum = calculator.savedNumber;
+    calculator.savedNumber = Number(text.textContent);
+  } else tempNum = Number(text.textContent);
+
+  printToDisplay(operate(operator, tempNum, calculator.savedNumber), false);
 }
 
 function readyNewNumber() {
