@@ -82,7 +82,8 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  return +(a / b).toFixed(4);
+  if (b === 0) return "Uhg. Go ask Siri.";
+  else return +(a / b).toFixed(4);
 }
 
 function operate(operator, a, b) {
@@ -99,7 +100,8 @@ function printToDisplay(string, concatenate = true, error = false) {
   if (concatenate) text.textContent += string;
   else text.textContent = string;
   if (text.textContent.toString().length > 9) {
-    if (!error) printToDisplay("Yeah, let's not do that.", false, true);
+    if (string === "Uhg. Go ask Siri.") text.textContent = string;
+    else if (!error) printToDisplay("Yeah, let's not do that.", false, true);
   }
   display.appendChild(text);
 }
