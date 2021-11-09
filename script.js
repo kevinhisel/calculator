@@ -63,6 +63,11 @@ function wireButtons() {
         setOperatorInactive();
         clearVariables();
       });
+    } else if (btn.name === 'delete') {
+      btn.addEventListener('click', () => {
+        if (calculator.isNewNumber || text.textContent.length <= 1) printToDisplay(0, false);
+        else printToDisplay(text.textContent.slice(0, -1), false);
+      });
     }
   });
 }
