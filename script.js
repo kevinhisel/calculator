@@ -66,7 +66,13 @@ function wireButtons() {
     } else if (btn.name === 'delete') {
       btn.addEventListener('click', () => {
         if (calculator.isNewNumber || text.textContent.length <= 1) printToDisplay(0, false);
-        else printToDisplay(text.textContent.slice(0, -1), false);
+        else {
+          if (calculator.hasDecimal) {
+            let tempChar = Array.from(text.textContent).pop();
+            if (tempChar === '.') calculator.hasDecimal = false;
+          }
+          printToDisplay(text.textContent.slice(0, -1), false);
+        }
       });
     }
   });
