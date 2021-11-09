@@ -81,11 +81,13 @@ function wireButtons() {
 // Math functions 
 
 function add(a, b) {
-  return a + b;
+  console.log(`a = ${a} b = ${b} | a + b = ${a + b}`);
+  return +(a + b).toFixed(4);
 }
 
 function subtract(a, b) {
-  return a - b;
+  console.log(`a = ${a} b = ${b} | a - b = ${a - b}`);
+  return +(a - b).toFixed(4);
 }
 
 function multiply(a, b) {
@@ -148,4 +150,5 @@ function clearVariables() {
   readyNewNumber();
   delete calculator.savedNumber;
   delete calculator.operator;
+  delete calculator.savedOperator;
 }
